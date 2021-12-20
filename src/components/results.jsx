@@ -13,10 +13,20 @@ class Results extends React.Component {
             { id: 7, result: 9, title: "Small Title" },
         ]
     }
+
+    handleIncrement = result => {
+      const results = [...this.state.results];
+      const index = results.indexOf(result);
+      results[index] = {...result};
+      results[index].result++;
+      console.log(this.state.results[index]);
+      this.setState({ results });
+    };
+
     render() { 
         return (
         <div className="result-panel responsive-width">
-            { this.state.results.map(result => <Result key={result.id} result={result.result} title={result.title} selected/>) }
+            { this.state.results.map(result => <Result key={result.id} onIncrement={this.handleIncrement} result={result} selected/>) }
         </div>
         );
     }

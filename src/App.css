@@ -8,7 +8,7 @@
   pointer-events: none;
 }
 
-.App-header {
+.App-container {
   /* background-color: #282c34; */
   background-color: hsla(0,0%,90%,1);  
   background-image: linear-gradient(-45deg, hsla(0,0%,0%,0), hsla(0,0%,0%,.05) );
@@ -49,18 +49,25 @@ h2 {
   margin-bottom: 40px;
   width: 95%;
   box-shadow: 3px 3px 5px black;
+  overflow: hidden;
 }
 
 .math-result {
   padding: 10px;
   width: 100px;
   color: black;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .calculation-title {
   padding: 10px;
   font-weight: bold;
   color: black;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .cstm-btn {
@@ -76,6 +83,7 @@ h2 {
   cursor: pointer;
   border-radius: 20px;
   box-shadow: 2px 2px 5px black;
+  min-width: 140px;
 }
 
 .red {
@@ -200,10 +208,15 @@ input[type=text] {
 
   .cstm-btn {
     padding: 10px 20px;
+    min-width: 90px;
   }
 
   .math-result {
     width: 60px;
+  }
+
+  .calculation-title {
+    max-width: 30%;
   }
 
   .App-header {

@@ -29,7 +29,8 @@
     white-space: nowrap;
   }
   
-  .cstm-btn.red {
+  .cstm-btn-red {
+    background-color: #e63946;
     border: none;
     color: white;
     padding: 10px 40px;
@@ -44,15 +45,8 @@
     min-width: 140px;
   }
 
-  .cstm-btn:hover {
+  .cstm-btn-red:hover {
     box-shadow: 1px 1px 4px black;
-  }
-  
-  .red {
-    background-color: #e63946;
-  }
-
-  .cstm-btn.red:hover {
     background-color: #da2534;
   }
 
@@ -71,7 +65,7 @@
       max-width: 30%;
     }
 
-    .cstm-btn {
+    .cstm-btn-red {
       padding: 10px 20px;
       min-width: 90px;
     }

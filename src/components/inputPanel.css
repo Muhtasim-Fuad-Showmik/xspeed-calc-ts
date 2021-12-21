@@ -130,7 +130,8 @@
     opacity: 1;
   }
 
-  .cstm-btn.grn{
+  .cstm-btn-grn{
+    background-color: #2a9d8f;
     border: none;
     color: white;
     padding: 10px 40px;
@@ -145,22 +146,16 @@
     box-shadow: 2px 2px 5px black;
     min-width: 140px;
   }
-
-  .cstm-btn:hover {
+  
+  .cstm-btn-grn:hover {
     box-shadow: 1px 1px 4px black;
+    background-color: #0c9282;
   }
 
-  .grn {
-    background-color: #2a9d8f;
-  }
-  
-  .cstm-btn.grn:hover {
-    background-color: #0c9282;
-  
-  }
-  
-  .grn-btn:hover {
-    background-color: #0c9282;
+  .cstm-btn-grn:disabled {
+    background: #3dbdae;
+    color: #555;
+    cursor: not-allowed;
   }
 
   @media only screen and (max-width: 600px) {
@@ -168,7 +163,7 @@
         height: 380px;
       }
 
-      .cstm-btn {
+      .cstm-btn-grn {
         padding: 10px 20px;
         min-width: 90px;
       }

@@ -19,7 +19,7 @@ class Result extends React.Component {
                     <div className="d-flex align-items-center">
                         <span className="math-result">= { this.props.result.result }</span>
                         <span className="calculation-title">{ this.props.result.title }</span>
-                        <button className="cstm-btn red" onClick={() => this.props.onIncrement(this.props.result)}>See Input</button>
+                        <button className="cstm-btn-red" onClick={() => this.props.onIncrement(this.props.result)}>See Input</button>
                     </div>
                 </div>);
     }

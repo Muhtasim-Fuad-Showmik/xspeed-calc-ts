@@ -4,6 +4,7 @@ import "./inputPanel.css";
 import { ImageConfig } from "../config/imageConfig";
 
 const InputPanel = (props) => {
+  const calcBtn = useRef(null);
   const wrapperRef = useRef(null);
   const [fileList, setFileList] = useState([]);
   const onDragEnter = () => wrapperRef.current.classList.add('dragover');
@@ -13,10 +14,14 @@ const InputPanel = (props) => {
   const onFileDrop = (e) => {
 	  const newFile = e.target.files[0];
 	  if (newFile) {
-		  const updatedList = [...fileList, newFile];
+		//   const updatedList = [...fileList, newFile];
+		//   For single file upload
+		  const updatedList = [newFile];
 		  setFileList(updatedList);
 		  props.onFileChange(updatedList);
 	  }
+
+	  calcBtn.current.disabled = false;
   }
 
   const fileRemove = (file) => {
@@ -24,6 +29,11 @@ const InputPanel = (props) => {
 	updatedList.splice(fileList.indexOf(file), 1);
 	setFileList(updatedList);
 	props.onFileChange(updatedList);
+
+	if(updatedList.length == 0)
+	{
+		calcBtn.current.disabled = true;
+	}
   }
 
   return (
@@ -84,7 +94,13 @@ const InputPanel = (props) => {
                 ))}
               </div>
             ) : null}
-            <button className="cstm-btn grn">Calculate</button>
+            <button
+				ref={calcBtn}
+				className="cstm-btn-grn"
+				disabled="true"
+			>
+				Calculate
+			</button>
           </form>
         </div>
       </div>

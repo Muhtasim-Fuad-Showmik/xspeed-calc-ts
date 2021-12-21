@@ -1,0 +1,78 @@
+.result-card {
+    border: 2px solid grey;
+    border-radius: 16px;
+    min-height: 70px;
+    padding: 10px 5px;
+    background-color: white;
+    text-align: left;
+    margin-bottom: 40px;
+    width: 95%;
+    box-shadow: 3px 3px 5px black;
+    overflow: hidden;
+  }
+  
+  .math-result {
+    padding: 10px;
+    width: 100px;
+    color: black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .calculation-title {
+    padding: 10px;
+    font-weight: bold;
+    color: black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .cstm-btn.red {
+    border: none;
+    color: white;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px black;
+    min-width: 140px;
+  }
+
+  .cstm-btn:hover {
+    box-shadow: 1px 1px 4px black;
+  }
+  
+  .red {
+    background-color: #e63946;
+  }
+
+  .cstm-btn.red:hover {
+    background-color: #da2534;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .result-card {
+      min-height: 60px;
+      padding: 7px 5px;
+      margin-bottom: 20px;
+    }
+
+    .math-result {
+      width: 60px;
+    }
+  
+    .calculation-title {
+      max-width: 30%;
+    }
+
+    .cstm-btn {
+      padding: 10px 20px;
+      min-width: 90px;
+    }
+  }

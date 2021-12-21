@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
+import "./result.css";
 
 class Result extends React.Component {
-    
+    // REMOVABLE
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.result.result !== this.props.result.result){
+            // Ajax call and get new data from the server
+        }
+    }
+
+    // REMOVABLE
+    componentWillUnmount() {
+        console.log('Counter - Unmount');
+    }
+
     render() {
         return (<div className="result-card">
                     <div className="d-flex align-items-center">

@@ -67,7 +67,7 @@
   }
 
   .upload-img-form:hover, 
-  upload-img-form.dragover {
+  .upload-img-form.dragover {
       opacity: 0.6;
       box-shadow: 3px 3px 5px #5f71cc inset, 
         2px 1px 1px 1px #5f71cc;
@@ -153,6 +153,7 @@
   }
 
   .cstm-btn-grn:disabled {
+    box-shadow: 2px 2px 5px black;
     background: #3dbdae;
     color: #555;
     cursor: not-allowed;

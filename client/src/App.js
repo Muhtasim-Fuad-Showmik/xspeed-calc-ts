@@ -1,6 +1,6 @@
 import './App.css';
-import InputPanel from './components/inputPanel';
 import ResultsContainer from './components/resultsContainer';
+import InputPanel from './components/inputPanel';
 
 const App = () => {
     const onFileChange = (files) => {

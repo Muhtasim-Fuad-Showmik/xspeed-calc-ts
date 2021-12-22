@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import "./App.css";
+import './App.css';
 import InputPanel from './components/inputPanel';
 import ResultsContainer from './components/resultsContainer';
 

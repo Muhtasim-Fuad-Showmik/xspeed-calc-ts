@@ -5,6 +5,10 @@ const app = express();
 
 app.use(fileUpload());
 
+app.get('/', (req, res) => {
+    res.send('Hello');
+});
+
 // Upload endpoint
 app.post('/upload', (req, res) => {
     if(req.files === null)

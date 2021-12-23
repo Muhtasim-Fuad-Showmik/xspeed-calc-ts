@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TotalCounter from './totalCounter';
 import Results from './results';
+import './resultsContainer.css';
 
 class ResultsContainer extends React.Component {
     state = {
@@ -22,7 +23,6 @@ class ResultsContainer extends React.Component {
     // REMOVABLE
     componentDidMount() {
         // Ajax Call to get data from the server
-        console.log('App - Mounted');
     }
 
     handleIncrement = result => {
@@ -36,13 +36,13 @@ class ResultsContainer extends React.Component {
 
     render() { 
         return(
-            <React.Fragment>
+            <div className={this.props.classType}>
                 <TotalCounter totalResults={this.state.results.length} />
                 <Results 
                     results={this.state.results}
                     onIncrement={this.handleIncrement} 
                 />
-            </React.Fragment>
+            </div>
         );
     }
 }

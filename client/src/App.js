@@ -1,21 +1,17 @@
+import React from 'react';
+import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
-import ResultsContainer from './components/resultsContainer';
-import InputPanel from './components/inputPanel';
+import ScreenA from './components/screenA';
+import ScreenB from './components/screenB';
 
 const App = () => {
-    const onFileChange = (files) => {
-        console.log(files);
-    }
-
     return (
-        <div className="App">
-            <main className="App-container">
-                <ResultsContainer />
-                <InputPanel 
-                    onFileChange={(files) => onFileChange(files)}
-                />
-            </main>
-        </div>
+        <Router>
+            <Routes>
+                <Route exact path="/" element={<ScreenA />} />
+                <Route exact path="/screenb" element={<ScreenB />} />
+            </Routes>
+        </Router>
     );;
 }
  

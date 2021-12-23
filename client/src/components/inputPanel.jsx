@@ -12,50 +12,13 @@ const InputPanel = (props) => {
   // States
   const [fileList, setFileList] = useState([]);
   const [uploadedFile, setUploadedFile] = useState({});
+  const [solution, setSolution] = useState({});
 
   const onDragEnter = () => wrapperRef.current.classList.add('dragover');
   const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
   const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
-const mathRegex = /(?:(?:^|[-+_*/])(?:\s*-?\d+(\.\d+)?(?:[eE][+-]?\d+)?\s*))+$/;
-const mathOperator = /[+*\/-]/g;
-
-  const calculate = (first, second, operator) => {
-    console.log(first, second, operator);
-    if (operator === "+") return first + parseFloat(second);
-    else if (operator === "-") return first - parseFloat(second);
-    else if (operator === "*") return first * parseFloat(second);
-    else if (operator === "/") return first / parseFloat(second);
-  }
-
-  const generateAnswer = (mathProblem) => {
-    let finalAns = 0;
-    let operand = '';
-    let operator = '+';
-    let currentIndex = 0;
-    let finalIndex = 0;
-    let lastIteration = false;
-    for(let i = 0; i < mathProblem.length; i++)
-    {
-      lastIteration = (i === mathProblem.length - 1);
-      if(mathOperator.test(mathProblem.charAt(i)) || lastIteration)
-      {
-        finalIndex = !(lastIteration) ? i : i-1;
-        operand = mathProblem.substring(currentIndex, finalIndex);
-        finalAns = calculate(finalAns, operand, operator);
-        if(!lastIteration)
-        {
-          currentIndex = finalIndex + 1;
-          operator = mathProblem.substring(finalIndex, finalIndex + 1);
-        }
-        else
-        {
-          break;
-        }
-      }
-    }
-    return finalAns;
-  }
+  const mathRegex = /(?:(?:^|[-+_*/])(?:\s*-?\d+(\.\d+)?(?:[eE][+-]?\d+)?\s*))+$/;
 
   const onFileDrop = (e) => {
 	  const newFile = e.target.files[0];
@@ -70,14 +33,36 @@ const mathOperator = /[+*\/-]/g;
       const reader = new FileReader();
       let finalAns = 0;
       reader.readAsText(newFile);
-      reader.onload = () => {
-        if(mathRegex.test(reader.result)){
-          finalAns = generateAnswer(reader.result);
-          console.log(finalAns);
+      try {
+        reader.onload = async () => {
+          if(mathRegex.test(reader.result)){
+            const mathProblem = reader.result;
+            const res = await axios.post('/api/solve-problem', mathProblem)
+            .then(response => setSolution({ result: response.data.solution}))
+            .catch(err => {
+              console.error(err);
+            });
+  
+            console.log(solution.result);
+  
+            if(!Number.isNaN(solution.result))
+            {
+              calcBtn.current.disabled = false;
+            }
+          }
+          else
+          {
+            console.log("Not a math expression");
+          }
+        }
+
+      } catch (err) {
+        if(err.response.status === 500) {
+          console.log('There was a problem with the server.');
         }
         else
         {
-          console.log("Not a math expression");
+          console.log(err.response.data.msg);
         }
       }
 
@@ -85,8 +70,6 @@ const mathOperator = /[+*\/-]/g;
         console.log('file error', reader.error);
       }
 	  }
-
-	  calcBtn.current.disabled = false;
   }
 
   const fileRemove = (file) => {

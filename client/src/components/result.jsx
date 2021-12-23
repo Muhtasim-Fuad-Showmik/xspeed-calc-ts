@@ -11,7 +11,7 @@ class Result extends React.Component {
 
     // REMOVABLE
     componentWillUnmount() {
-        console.log('Counter - Unmount');
+        // console.log('Counter - Unmount');
     }
 
     render() {

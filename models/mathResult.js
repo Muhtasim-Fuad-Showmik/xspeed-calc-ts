@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const mathResultSchema = {
+const mathResultSchema = new Schema({
     title: String,
     solution: Number,
     filePath: String
-}
+});
 
-const mathResultSchema = mongoose.model("mathResult", mathResultSchema);
-
-module.exports = mathResult;
+module.exports = mongoose.model("MathResult", mathResultSchema);

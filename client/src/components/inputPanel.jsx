@@ -12,7 +12,7 @@ const InputPanel = (props) => {
   // States
   const [fileList, setFileList] = useState([]);
   const [uploadedFile, setUploadedFile] = useState({});
-  const [solution, setSolution] = useState({});
+  const [solution, setSolution] = useState({ result: 0, updated: false });
 
   const onDragEnter = () => wrapperRef.current.classList.add('dragover');
   const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -22,6 +22,8 @@ const InputPanel = (props) => {
 
   const onFileDrop = (e) => {
 	  const newFile = e.target.files[0];
+
+    fileRemove(fileList[0]);
 	  if (newFile && newFile.name.split('.').pop() === "txt") {
 		//   const updatedList = [...fileList, newFile];
 
@@ -36,14 +38,15 @@ const InputPanel = (props) => {
       try {
         reader.onload = async () => {
           if(mathRegex.test(reader.result)){
-            const mathProblem = reader.result;
+            const mathProblem = {
+              problem: reader.result
+            };
+
             const res = await axios.post('/api/solve-problem', mathProblem)
-            .then(response => setSolution({ result: response.data.solution}))
+            .then(response => setSolution({ result: response.data.solution, updated: true }))
             .catch(err => {
               console.error(err);
             });
-  
-            console.log(solution.result);
   
             if(!Number.isNaN(solution.result))
             {
@@ -77,6 +80,7 @@ const InputPanel = (props) => {
     updatedList.splice(fileList.indexOf(file), 1);
     setFileList(updatedList);
     props.onFileChange(updatedList);
+    setSolution({ result: 0, updated: false });
 
     if(updatedList.length == 0)
     {
@@ -88,8 +92,8 @@ const InputPanel = (props) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     fileList.forEach(async file => {
-      file.title = "default";
       formData.append('file', file);
+      formData.append('solution', solution.result);
 
       try {
         const res = await axios.post('/api/upload', formData, {
@@ -100,6 +104,8 @@ const InputPanel = (props) => {
 
         const { fileName, filePath } = res.data;
         setUploadedFile({ fileName, filePath });
+        fileRemove(file);
+        setSolution({ result: 0, updated: false });
       } catch (err) {
         if(err.response.status === 500) {
           console.log('There was a problem with the server.');
@@ -160,8 +166,9 @@ const InputPanel = (props) => {
                       alt=""
                     />
                     <div className="drop-file-preview__item__info">
-                      <p>{item.name}</p>
-                      <p>{item.size}B</p>
+                      <p>{item.name} - {item.size}B</p>
+                      <p>{(solution.updated) ? solution.result : 'Calculating, Please wait'}</p>
+
                     </div>
                     <span
                       className="drop-file-preview__item__del"

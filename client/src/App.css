@@ -3,15 +3,10 @@
   font-family: 'Abel', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-container {
   /* background-color: #282c34; */
   background-color: var(--body-bg);  
-  min-height: 100vh;
+  min-height: 100%;
   width: 100vw;
   display: flex;
   flex-direction: column;

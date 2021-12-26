@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
 import ResultsContainer from './resultsContainer';
+import { DragDropContext } from "react-beautiful-dnd";
 import InputPanel from './inputPanel';
 import React from "react";
+
+const onDragEnd = output => {
+    //TO IMPLEMENT
+}
 
 const ScreenA = () => { 
     const onFileChange = (files) => {
         // console.log(files);
     }
 
+
     return (
-        <React.Fragment>
+        <DragDropContext onDragEnd={onDragEnd}>
             <div className="App">
                 <main className="App-container">
                     <ResultsContainer classType="screen-a" />
@@ -19,7 +25,7 @@ const ScreenA = () => {
                     <h4><Link to="/screenb">Screen B</Link></h4>
                 </main>
             </div>
-        </React.Fragment>
+        </DragDropContext>
     );
 }
  

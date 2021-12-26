@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import TotalCounter from './totalCounter';
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import Results from './results';
 import './resultsContainer.css';
+import initialData from "../seeds";
 
 class ResultsContainer extends React.Component {
-    state = {
-        results: [
-            { id: 1, result: 24, title: "Calculation Title" },
-            { id: 2, result: 22.123, title: "Calc Title" },
-            { id: 3, result: 23.34, title: "Calc Title 2" },
-            { id: 4, result: 27.341, title: "Another Title" },
-            { id: 5, result: 721.21, title: "Calc Ttl" },
-            { id: 6, result: 29, title: "Exhausted Title" },
-            { id: 7, result: 9, title: "Small Title" },
-        ]
-    }
+    state = initialData;
 
     constructor(props) {
         super(props);
@@ -26,22 +18,26 @@ class ResultsContainer extends React.Component {
     }
 
     handleIncrement = result => {
-      const results = [...this.state.results];
-      const index = results.indexOf(result);
-      results[index] = {...result};
-      results[index].result++;
-      console.log(this.state.results[index]);
-      this.setState({ results });
+        const { results } = this.state;
+        results[result.id].result++;
+        this.setState( results );
     };
 
     render() { 
+        const { columns } = this.state;
+        const column = columns['column-1'];
+        const results = column.resultIds.map(resultId => this.state.results[resultId]);
+
         return(
             <div className={this.props.classType}>
                 <TotalCounter totalResults={this.state.results.length} />
+
                 <Results 
-                    results={this.state.results}
-                    onIncrement={this.handleIncrement} 
+                results={results}
+                column={column}
+                onIncrement={this.handleIncrement} 
                 />
+
             </div>
         );
     }

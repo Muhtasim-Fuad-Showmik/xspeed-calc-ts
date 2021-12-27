@@ -128,6 +128,7 @@ const InputPanel = (props) => {
     fileList.forEach(async file => {
       formData.append('file', file);
       formData.append('solution', solution.result);
+      // formData.append('index', props.results.length);
 
       try {
         const res = await axios.post('/api/upload', formData, {

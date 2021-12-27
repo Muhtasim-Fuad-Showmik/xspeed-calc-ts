@@ -22,7 +22,7 @@ app.use(fileUpload());
 
 // Data retrieval endpoint
 app.get('/results', async (req, res) => {
-    await mathResult.find({})
+    await mathResult.find({}).sort( { index: 1 } )
     .then(foundMathResult => res.json(foundMathResult));
 })
 
@@ -54,11 +54,13 @@ app.post('/upload', async (req, res) => {
     
     const file = req.files.file;
     const { calculationTitle, solution } = req.body;
+    let index = 3;
 
     const mathResult = new MathResult({
         title: calculationTitle,
         solution,
-        filePath: `/uploads/${file.name}`
+        filePath: `/uploads/${file.name}`,
+        index: index+1,
     });
     const savedMathResult = await mathResult.save();
 

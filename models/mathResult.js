@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const mathResultSchema = new Schema({
     title: String,
     solution: Number,
-    filePath: String
+    filePath: String,
+    index: Number
 });
 
 module.exports = mongoose.model("MathResult", mathResultSchema);

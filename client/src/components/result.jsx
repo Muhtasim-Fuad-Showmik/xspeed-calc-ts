@@ -26,11 +26,10 @@ class Result extends React.Component {
                     <Draggable draggableId={result.id} index={index}>
                         {(provided, snapshot) => (
                         <div 
-                            className={this.props.isdragging ? "" : "result-card"}
+                            className={snapshot.isDragging ? "result-card dragging" : "result-card"}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
-                            isDragging={snapshot.isDragging}
                         >
                             <div className="d-flex align-items-center">
                                 <span className="math-result">= { result.result }</span>

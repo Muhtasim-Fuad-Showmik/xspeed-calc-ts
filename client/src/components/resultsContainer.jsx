@@ -8,11 +8,6 @@ class ResultsContainer extends React.Component {
         super(props);
     }
 
-    // REMOVABLE
-    componentDidMount() {
-        // Ajax Call to get data from the server
-    }
-
     render() { 
         const { columns, onIncrement } = this.props;
         const column = columns['column-1'];
@@ -20,7 +15,7 @@ class ResultsContainer extends React.Component {
 
         return(
             <div className={this.props.classType}>
-                <TotalCounter totalResults={this.props.results.length} />
+                <TotalCounter totalResults={results.length} />
                 <Results 
                 results={results}
                 column={column}

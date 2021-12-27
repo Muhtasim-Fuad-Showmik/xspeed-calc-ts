@@ -2,6 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const mexp = require('math-expression-evaluator');
 const mongoose = require('mongoose');
+const mathResult = require('./models/mathResult');
 const MathResult = require('./models/mathResult');
 const dbUrl = "mongodb://localhost:27017/xspeedcalc";
 
@@ -18,6 +19,12 @@ db.once("open", () => {
 app.use(express.json());
 // app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
+
+// Data retrieval endpoint
+app.get('/results', async (req, res) => {
+    await mathResult.find({})
+    .then(foundMathResult => res.json(foundMathResult));
+})
 
 // Solution endpoint
 app.post('/solve-problem', (req, res) => {

@@ -6,6 +6,7 @@ import { ImageConfig } from "../config/imageConfig";
 
 const InputPanel = (props) => {
   // References
+  const inputRef = useRef(null);
   const calcBtn = useRef(null);
   const wrapperRef = useRef(null);
 
@@ -88,6 +89,39 @@ const InputPanel = (props) => {
     }
   }
 
+  
+  const fetchData = () => {
+    fetch("/api/results").then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+    }).then(
+        (jsonRes) => {
+            const newState = {
+                results: {},
+                columns: {
+                    'column-1': {
+                        id: 'column-1',
+                        title: 'Results',
+                        resultIds: [],
+                    }
+                }
+            };
+            jsonRes.forEach(result => {
+                const resultId = result._id.toString();
+                newState.results[resultId] = {}
+                newState.results[resultId].id = resultId;
+                newState.results[resultId].result = result.solution;
+                newState.results[resultId].title = result.title;
+                newState.results[resultId].filePath = result.filePath;
+                newState.columns['column-1'].resultIds.push(resultId);
+            });
+
+            props.handler(newState);
+        }
+    )
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -106,6 +140,8 @@ const InputPanel = (props) => {
         setUploadedFile({ fileName, filePath });
         fileRemove(file);
         setSolution({ result: 0, updated: false });
+        inputRef.current.value = '';
+        fetchData();
       } catch (err) {
         if(err.response.status === 500) {
           console.log('There was a problem with the server.');
@@ -128,11 +164,11 @@ const InputPanel = (props) => {
         <div className="container">
           <form onSubmit={onSubmit}>
             <input
+              ref={inputRef}
               type="text"
               className="input-element"
               name="calculationTitle"
               placeholder="Calculation Title"
-              
               required
             />
             <div

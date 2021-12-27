@@ -59,7 +59,8 @@ const ScreenA = (props) => {
                         dragAndDrop={true}
                         onIncrement={props.onIncrement}
                     />
-                    <InputPanel 
+                    <InputPanel
+                        handler={props.handler} 
                         onFileChange={(files) => onFileChange(files)}
                     />
                     <h4><Link to="/screenb">Screen B</Link></h4>

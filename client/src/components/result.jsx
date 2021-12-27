@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Draggable } from "react-beautiful-dnd";
 import "./result.css";
 
 class Result extends React.Component {
@@ -15,13 +16,43 @@ class Result extends React.Component {
     }
 
     render() {
-        return (<div className="result-card">
-                    <div className="d-flex align-items-center">
-                        <span className="math-result">= { this.props.result.result }</span>
-                        <span className="calculation-title">{ this.props.result.title }</span>
-                        <button className="cstm-btn-red" onClick={() => this.props.onIncrement(this.props.result)}>See Input</button>
+        const { result, onIncrement, index, dragAndDrop } = this.props;
+
+        return (
+            <React.Fragment>
+            {
+                dragAndDrop ?
+                (
+                    <Draggable draggableId={result.id} index={index}>
+                        {(provided, snapshot) => (
+                        <div 
+                            className={this.props.isdragging ? "" : "result-card"}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                            isDragging={snapshot.isDragging}
+                        >
+                            <div className="d-flex align-items-center">
+                                <span className="math-result">= { result.result }</span>
+                                <span className="calculation-title">{ result.title }</span>
+                                <button className="cstm-btn-red" onClick={() => onIncrement(result)}>See Input</button>
+                            </div>
+                        </div>
+                        )}
+                    </Draggable>
+                ) :
+                (
+                    <div className="result-card">
+                        <div className="d-flex align-items-center">
+                            <span className="math-result">= { result.result }</span>
+                            <span className="calculation-title">{ result.title }</span>
+                            <button className="cstm-btn-red" onClick={() => onIncrement(result)}>See Input</button>
+                        </div>
                     </div>
-                </div>);
+                )
+            }
+            </React.Fragment>
+        );
     }
 }
  

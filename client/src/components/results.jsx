@@ -1,18 +1,53 @@
 import React, { Component } from 'react';
-import ReactDOM from "react-dom";
+import { Droppable} from "react-beautiful-dnd";
 import Result from './result';
 import "./results.css";
 
 class Results extends Component {
     render() {
-        const { column, results, onIncrement } = this.props;
+        const { column, results, onIncrement, dragAndDrop } = this.props;
         return (
             <div 
                 className="result-panel responsive-width"
             >
-                {results.map((result) => (
-                    <Result key={result.id} onIncrement={onIncrement} result={result} selected/>
-                ))}
+            {
+                dragAndDrop ?
+                (
+                    <Droppable droppableId={column.id}>
+                    {(provided) => (
+                        <div
+                        ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            >
+                                {results.map((result, index) => (
+                                    <Result 
+                                        key={result.id} 
+                                        onIncrement={onIncrement} 
+                                        result={result} 
+                                        index={index}
+                                        dragAndDrop={dragAndDrop}
+                                        selected
+                                    />
+                                ))}
+                            {provided.placeholder}
+                        </div>
+                        )}
+                    </Droppable>
+                ) :
+                (
+                    <div>
+                        {results.map((result, index) => (
+                            <Result 
+                                key={result.id} 
+                                onIncrement={onIncrement} 
+                                result={result} 
+                                index={index} 
+                                selected
+                            />
+                        ))}
+                    </div>
+                )
+            }
             </div>
         );
     }

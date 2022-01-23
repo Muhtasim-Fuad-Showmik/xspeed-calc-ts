@@ -53,7 +53,7 @@
     box-shadow: 1px 1px 4px black;
     background-color: #da2534;
   }
-
+  
   @media only screen and (max-width: 600px) {
     .result-card {
       min-height: 60px;

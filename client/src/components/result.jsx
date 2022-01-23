@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
 import { Draggable } from "react-beautiful-dnd";
 import "./result.css";
+import Modal from './modal';
 
 class Result extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isOpen: false
+        };
+    }
+
+    openModal(){
+        this.setState({
+            isOpen: true
+        });
+    }
+
+    closeModal(){
+        this.setState({
+            isOpen: false
+        });
+    }
+
     // REMOVABLE
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.result.result !== this.props.result.result){
@@ -16,7 +36,7 @@ class Result extends React.Component {
     }
 
     render() {
-        const { result, onIncrement, index, dragAndDrop } = this.props;
+        const { result, index, dragAndDrop } = this.props;
 
         return (
             <React.Fragment>
@@ -34,7 +54,10 @@ class Result extends React.Component {
                             <div className="d-flex align-items-center">
                                 <span className="math-result">= { result.result }</span>
                                 <span className="calculation-title">{ result.title }</span>
-                                <button className="cstm-btn-red" onClick={() => onIncrement(result)}>See Input</button>
+                                <button className="cstm-btn-red" onClick={() => this.openModal()}>See Input</button>
+                                <Modal open={this.state.isOpen} onClose={() => this.closeModal()}>
+                                    { result.inputContent }
+                                </Modal>
                             </div>
                         </div>
                         )}
@@ -45,7 +68,10 @@ class Result extends React.Component {
                         <div className="d-flex align-items-center">
                             <span className="math-result">= { result.result }</span>
                             <span className="calculation-title">{ result.title }</span>
-                            <button className="cstm-btn-red" onClick={() => onIncrement(result)}>See Input</button>
+                            <button className="cstm-btn-red" onClick={() => this.openModal()}>See Input</button>
+                            <Modal open={this.state.isOpen} onClose={() => this.closeModal()}>
+                                File Path: { result.inputContent }
+                            </Modal>
                         </div>
                     </div>
                 )

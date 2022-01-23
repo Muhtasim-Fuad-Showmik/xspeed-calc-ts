@@ -1,0 +1,39 @@
+.modal-style {
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 12px rgba(0,0,0,0.35);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 50px;
+    z-index: 1000;
+}
+
+.modal-style .label {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.modal-style .content {
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px gray inset;
+    padding: 10px;
+    background-color: rgb(39, 39, 39);
+    color: white;
+}
+
+.modal-button {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0.5;
+    background-color: white;
+    border: none;
+}
+
+.modal-button:hover {
+    opacity: 1;
+}

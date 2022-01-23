@@ -6,6 +6,7 @@ import "./results.css";
 class Results extends Component {
     render() {
         const { column, results, onIncrement, dragAndDrop } = this.props;
+        
         return (
             <div 
                 className="result-panel responsive-width"

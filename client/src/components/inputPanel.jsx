@@ -14,6 +14,7 @@ const InputPanel = (props) => {
   const [fileList, setFileList] = useState([]);
   const [uploadedFile, setUploadedFile] = useState({});
   const [solution, setSolution] = useState({ result: 0, updated: false });
+  const [input, setInput] = useState({ content: "" });
 
   const onDragEnter = () => wrapperRef.current.classList.add('dragover');
   const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -22,7 +23,14 @@ const InputPanel = (props) => {
   const mathRegex = /(?:(?:^|[-+_*/])(?:\s*-?\d+(\.\d+)?(?:[eE][+-]?\d+)?\s*))+$/;
 
   const onFileDrop = (e) => {
+    const reader = new FileReader();
+    let text = "";
 	  const newFile = e.target.files[0];
+    reader.onload = (e) => {
+      text = e.target.result;
+      setInput({ content: text});
+    }
+    reader.readAsText(newFile);
 
     fileRemove(fileList[0]);
 	  if (newFile && newFile.name.split('.').pop() === "txt") {
@@ -128,7 +136,7 @@ const InputPanel = (props) => {
     fileList.forEach(async file => {
       formData.append('file', file);
       formData.append('solution', solution.result);
-      // formData.append('index', props.results.length);
+      formData.append('inputContent', input.content);
 
       try {
         const res = await axios.post('/api/upload', formData, {

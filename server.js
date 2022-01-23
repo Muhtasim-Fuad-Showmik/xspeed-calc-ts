@@ -53,12 +53,13 @@ app.post('/upload', async (req, res) => {
     }
     
     const file = req.files.file;
-    const { calculationTitle, solution } = req.body;
+    const { calculationTitle, solution, inputContent } = req.body;
     let index = 3;
 
     const mathResult = new MathResult({
         title: calculationTitle,
         solution,
+        inputContent: inputContent,
         filePath: `/uploads/${file.name}`,
         index: index+1,
     });

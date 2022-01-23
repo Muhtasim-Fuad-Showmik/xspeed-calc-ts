@@ -52,6 +52,7 @@ class MainContainer extends React.Component {
                     newState.results[resultId].result = result.solution;
                     newState.results[resultId].title = result.title;
                     newState.results[resultId].filePath = result.filePath;
+                    newState.results[resultId].inputContent = result.inputContent;
                     newState.columns['column-1'].resultIds.push(resultId);
                 });
 

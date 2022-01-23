@@ -2,8 +2,8 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const mexp = require('math-expression-evaluator');
 const mongoose = require('mongoose');
+let ObjectId = require('mongoose').Types.ObjectId;
 const mathResult = require('./models/mathResult');
-const MathResult = require('./models/mathResult');
 const dbUrl = "mongodb://localhost:27017/xspeedcalc";
 
 const app = express();
@@ -54,16 +54,24 @@ app.post('/upload', async (req, res) => {
     
     const file = req.files.file;
     const { calculationTitle, solution, inputContent } = req.body;
-    let index = 3;
+    let index = 0;
+    let highestIndex = await mathResult.find({})
+        .sort({
+            index: -1
+        })
+        .limit(1);
+    if(highestIndex.length > 0){
+        index = highestIndex[0].index + 1;
+    }
 
-    const mathResult = new MathResult({
+    const newMathResult = new mathResult({
         title: calculationTitle,
         solution,
         inputContent: inputContent,
         filePath: `/uploads/${file.name}`,
-        index: index+1,
+        index: index,
     });
-    const savedMathResult = await mathResult.save();
+    const savedMathResult = await newMathResult.save();
 
 
     file.mv(`${__dirname}/client/public/uploads/${file.name}`, err => {
@@ -74,6 +82,16 @@ app.post('/upload', async (req, res) => {
         
         res.json({ fileName: file.name, filePath: `/uploads/${file.name}`});
     })
+});
+
+app.post('/update-indices', (req, res) => {
+    let queryParameters = req.body;
+    console.log(queryParameters);
+
+    queryParameters.forEach( async (element) => {
+        let filter = {"_id": new ObjectId(element.filter) };
+        await mathResult.findOneAndUpdate(filter, element.update);
+    });
 });
 
 app.listen(5000, () => console.log('Server started at port 5000...'));

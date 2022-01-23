@@ -9,7 +9,7 @@ class ResultsContainer extends React.Component {
     }
 
     render() { 
-        const { columns, onIncrement } = this.props;
+        const { columns } = this.props;
         const column = columns['column-1'];
         const results = column.resultIds.map(resultId => this.props.results[resultId]);
 
@@ -20,7 +20,6 @@ class ResultsContainer extends React.Component {
                 results={results}
                 column={column}
                 dragAndDrop={this.props.dragAndDrop}
-                onIncrement={onIncrement}
                 />
             </div>
         );

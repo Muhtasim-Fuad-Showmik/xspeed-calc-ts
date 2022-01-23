@@ -5,8 +5,8 @@ import "./results.css";
 
 class Results extends Component {
     render() {
-        const { column, results, onIncrement, dragAndDrop } = this.props;
-        
+        const { column, results, dragAndDrop } = this.props;
+
         return (
             <div 
                 className="result-panel responsive-width"
@@ -22,8 +22,7 @@ class Results extends Component {
                             >
                                 {results.map((result, index) => (
                                     <Result 
-                                        key={result.id} 
-                                        onIncrement={onIncrement} 
+                                        key={result.id}
                                         result={result} 
                                         index={index}
                                         dragAndDrop={dragAndDrop}
@@ -39,8 +38,7 @@ class Results extends Component {
                     <div>
                         {results.map((result, index) => (
                             <Result 
-                                key={result.id} 
-                                onIncrement={onIncrement} 
+                                key={result.id}
                                 result={result} 
                                 index={index} 
                                 selected

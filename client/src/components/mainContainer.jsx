@@ -22,12 +22,6 @@ class MainContainer extends React.Component {
         this.setState(newState);
     }
 
-    handleIncrement = result => {
-        const { results } = this.state;
-        results[result.id].result++;
-        this.setState( results );
-    };
-
     fetchData(){
         fetch("/api/results").then(res => {
             if(res.ok) {
@@ -65,8 +59,8 @@ class MainContainer extends React.Component {
         return (
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<ScreenA results={this.state.results} columns={this.state.columns} handler={this.handler} onIncrement={this.handleIncrement} />} />
-                    <Route exact path="/screenb" element={<ScreenB results={this.state.results} columns={this.state.columns} handler={this.handler} onIncrement={this.handleIncrement} />} />
+                    <Route exact path="/" element={<ScreenA results={this.state.results} columns={this.state.columns} handler={this.handler} />} />
+                    <Route exact path="/screenb" element={<ScreenB results={this.state.results} columns={this.state.columns} handler={this.handler} />} />
                 </Routes>
             </Router>
         );

@@ -12,7 +12,6 @@ const ScreenB = (props) => {
                         results={props.results}
                         columns={props.columns}
                         dragAndDrop={false}
-                        onIncrement={props.onIncrement}  
                     />
                     <h4><Link to="/">Screen A</Link></h4>
                 </main>

@@ -70,7 +70,7 @@ class Result extends React.Component {
                             <span className="calculation-title">{ result.title }</span>
                             <button className="cstm-btn-red" onClick={() => this.openModal()}>See Input</button>
                             <Modal open={this.state.isOpen} onClose={() => this.closeModal()}>
-                                File Path: { result.inputContent }
+                                { result.inputContent }
                             </Modal>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const mexp = require('math-expression-evaluator');
 const mongoose = require('mongoose');
 let ObjectId = require('mongoose').Types.ObjectId;
 const mathResult = require('./models/mathResult');
-const dbUrl = "mongodb://localhost:27017/xspeedcalc";
-
+const dbUrl = process.env.dbUrl;
 const app = express();
 
 mongoose.connect(dbUrl);

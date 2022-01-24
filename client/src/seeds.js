@@ -1,4 +1,5 @@
 const initialData = {
+    pageNumber: 1,
     results: {
         'result-1': { id: 'result-1', result: 24, title: "Calculation Title", filePath: "somewhere/someText.txt", inputContent: "8*3", index: 0 },
         'result-2': { id: 'result-2', result: 22.123, title: "Calc Title", filePath: "somewhere/someText.txt", inputContent: "8*3", index: 1 },

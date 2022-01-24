@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ScreenA from './screenA';
 import ScreenB from './screenB';
+// import getResults from './getResults';
 import initialData from "../seeds";
 
 class MainContainer extends React.Component {
@@ -35,6 +36,7 @@ class MainContainer extends React.Component {
         }).then(
             (jsonRes) => {
                 const newState = {
+                    pageNumber: 1,
                     results: {},
                     columns: {
                         'column-1': {
@@ -58,6 +60,7 @@ class MainContainer extends React.Component {
                 this.setState(newState);
             }
         )
+        // getResults(this.state.pageNumber);
     }
 
     render() { 

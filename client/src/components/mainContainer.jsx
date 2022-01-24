@@ -14,7 +14,12 @@ class MainContainer extends React.Component {
     }
 
     componentDidMount(){
-        this.fetchData();
+        this.timer = setInterval(() => this.fetchData(), 1000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.timer);
+        this.timer = null;
     }
 
     handler(newState)
